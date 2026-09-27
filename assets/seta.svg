@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" data-name="Camada 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336.61 306.18">
+  <defs>
+    <linearGradient id="arrow-top" x1="92.79" y1="120.99" x2="92.79" y2="3.18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffbd06"/>
+      <stop offset="1" stop-color="#f67603"/>
+    </linearGradient>
+    <linearGradient id="arrow-bottom" x1="83.29" y1="187.85" x2="83.29" y2="301.87" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffbd06"/>
+      <stop offset="1" stop-color="#f67603"/>
+    </linearGradient>
+    <linearGradient id="arrow-center" x1="166.58" y1="153" x2="336.61" y2="153" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fe7701"/>
+      <stop offset="1" stop-color="#fe7501"/>
+    </linearGradient>
+  </defs>
+  <polygon fill="url(#arrow-top)" points="166.58 0 166.58 122.82 133.7 122.82 19 0 166.58 0"/>
+  <polygon fill="url(#arrow-bottom)" points="166.58 179.99 166.58 306.01 166.37 306.18 0 306.18 135.14 179.99 166.58 179.99"/>
+  <polygon fill="url(#arrow-center)" points="336.61 147.2 166.58 306.01 166.58 206.13 221.09 155.21 166.58 96.83 166.58 0 199.13 0 336.61 147.2"/>
+</svg>

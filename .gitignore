@@ -1,0 +1,16 @@
+# Local/system files
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Credentials and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+
+# Unused server-side SMTP fallback; GitHub Pages is static
+send-mail.php

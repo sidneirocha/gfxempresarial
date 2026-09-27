@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" data-name="Camada 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 238.88 238.88"><metadata><?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 6.0.0"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmpMM:DocumentID="xmp.did:cb9f5498-bb58-4572-8043-8c369e6bfb9b" xmpMM:InstanceID="xmp.iid:cb9f5498-bb58-4572-8043-8c369e6bfb9b" dcterms:provenance="https://cai-manifests.adobe.com/manifests/urn-c2pa-990c1c37-7071-44b1-8b18-15a666d79403-adobe"> </rdf:Description></rdf:RDF></x:xmpmeta>
+<?xpacket end="w"?></metadata>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Gradiente_sem_nome_32);
+      }
+
+      .cls-2 {
+        fill: url(#Gradiente_sem_nome_15);
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #08192b;
+      }
+
+      .cls-5 {
+        fill: url(#Gradiente_sem_nome_32-2);
+      }
+    </style>
+    <linearGradient id="Gradiente_sem_nome_32" data-name="Gradiente sem nome 32" x1="70.1" y1="109.29" x2="70.1" y2="68.1" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffbd06"/>
+      <stop offset="1" stop-color="#f67603"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_32-2" data-name="Gradiente sem nome 32" x1="64.5" y1="131.09" x2="64.5" y2="169.33" xlink:href="#Gradiente_sem_nome_32"/>
+    <linearGradient id="Gradiente_sem_nome_15" data-name="Gradiente sem nome 15" x1="92.43" y1="119.41" x2="149.44" y2="119.41" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fe7701"/>
+      <stop offset="1" stop-color="#fe7501"/>
+    </linearGradient>
+  </defs>
+  <g id="Camada_1-2" data-name="Camada 1">
+    <g>
+      <rect class="cls-4" width="238.88" height="238.88"/>
+      <g>
+        <polygon class="cls-1" points="92.43 68.1 92.43 109.29 82.48 109.29 47.77 68.1 92.43 68.1"/>
+        <polygon class="cls-5" points="92.43 128.46 92.43 170.71 92.36 170.77 36.57 170.77 81.89 128.46 92.43 128.46"/>
+        <polygon class="cls-2" points="149.44 117.46 92.43 170.71 92.43 137.22 110.71 120.15 92.43 100.57 92.43 68.1 103.35 68.1 149.44 117.46"/>
+        <polygon class="cls-3" points="199.24 170.77 148.74 170.77 128.74 149.35 133.67 144.73 151.1 128.46 155.7 124.15 159.72 128.46 199.24 170.77"/>
+        <polygon class="cls-3" points="202.3 68.1 158.2 109.29 154.16 113.06 150.64 109.29 137.45 95.18 132.16 89.51 155.09 68.1 202.3 68.1"/>
+      </g>
+    </g>
+  </g>
+</svg>
