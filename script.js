@@ -355,9 +355,73 @@ if (maintenanceCarousel) {
   const dotsContainer = maintenanceCarousel.parentElement.querySelector('[data-carousel-dots]');
   const prevButton = maintenanceCarousel.querySelector('[data-carousel-prev]');
   const nextButton = maintenanceCarousel.querySelector('[data-carousel-next]');
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let autoplayTimer = 0;
+  let interactionPaused = false;
+  let cycleWidth = 0;
 
-  const getStep = () => cards[0]?.getBoundingClientRect().width + 18 || 0;
-  const getPageCount = () => Math.max(1, Math.ceil(track.scrollWidth / track.clientWidth));
+  const clones = cards.map(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('a, button, input, textarea, select, [tabindex]').forEach(element => {
+      element.setAttribute('tabindex', '-1');
+    });
+    return clone;
+  });
+  track.append(...clones);
+
+  const getPageCount = () => {
+    const firstCard = cards[0];
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+    const cardWidth = firstCard?.getBoundingClientRect().width || track.clientWidth;
+    const visibleCards = Math.max(1, Math.floor((track.clientWidth + gap) / (cardWidth + gap)));
+    return Math.max(1, Math.ceil(cards.length / visibleCards));
+  };
+  const getStep = () => {
+    const firstCard = cards[0];
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+    return (firstCard?.getBoundingClientRect().width || 0) + gap;
+  };
+  const getCurrentPage = () => Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
+  const measureCycle = () => {
+    cycleWidth = clones[0]?.offsetLeft - cards[0]?.offsetLeft || track.scrollWidth;
+  };
+  const normalizeScroll = () => {
+    if (!cycleWidth) measureCycle();
+    while (cycleWidth > 0 && track.scrollLeft >= cycleWidth) {
+      track.scrollLeft -= cycleWidth;
+    }
+  };
+
+  const stopAutoplay = () => {
+    window.clearInterval(autoplayTimer);
+    autoplayTimer = 0;
+  };
+
+  const scrollToPage = page => {
+    const pageCount = getPageCount();
+    const nextPage = (page + pageCount) % pageCount;
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    track.scrollTo({
+      left: Math.min(nextPage * track.clientWidth, maxScroll),
+      behavior: reducedMotionQuery.matches ? 'auto' : 'smooth',
+    });
+  };
+
+  const advance = () => {
+    track.scrollBy({
+      left: getStep(),
+      behavior: reducedMotionQuery.matches ? 'auto' : 'smooth',
+    });
+  };
+
+  const startAutoplay = () => {
+    stopAutoplay();
+    if (interactionPaused || reducedMotionQuery.matches || getPageCount() < 2) return;
+    autoplayTimer = window.setInterval(() => {
+      if (!document.hidden) advance();
+    }, 4500);
+  };
 
   const updateDots = () => {
     if (!dotsContainer) return;
@@ -368,19 +432,59 @@ if (maintenanceCarousel) {
       dot.className = `carousel-dot${index === 0 ? ' is-active' : ''}`;
       dot.type = 'button';
       dot.setAttribute('aria-label', `Página ${index + 1} de manutenções`);
-      dot.addEventListener('click', () => track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' }));
+      dot.addEventListener('click', () => {
+        scrollToPage(index);
+        startAutoplay();
+      });
       dotsContainer.append(dot);
     }
   };
 
-  prevButton?.addEventListener('click', () => track.scrollBy({ left: -getStep(), behavior: 'smooth' }));
-  nextButton?.addEventListener('click', () => track.scrollBy({ left: getStep(), behavior: 'smooth' }));
+  prevButton?.addEventListener('click', () => {
+    track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    startAutoplay();
+  });
+  nextButton?.addEventListener('click', () => {
+    advance();
+    startAutoplay();
+  });
   track.addEventListener('scroll', () => {
-    const page = Math.round(track.scrollLeft / track.clientWidth);
+    normalizeScroll();
+    const page = getCurrentPage();
     dotsContainer?.querySelectorAll('.carousel-dot').forEach((dot, index) => dot.classList.toggle('is-active', index === page));
   }, { passive: true });
+  const pauseForInteraction = () => {
+    interactionPaused = true;
+    stopAutoplay();
+  };
+  const resumeFromInteraction = () => {
+    interactionPaused = false;
+    startAutoplay();
+  };
+  track.addEventListener('pointerenter', pauseForInteraction);
+  track.addEventListener('pointerleave', resumeFromInteraction);
+  track.addEventListener('touchstart', pauseForInteraction, { passive: true });
+  track.addEventListener('touchend', resumeFromInteraction, { passive: true });
+  track.addEventListener('focusin', pauseForInteraction);
+  track.addEventListener('focusout', event => {
+    if (!track.contains(event.relatedTarget)) {
+      resumeFromInteraction();
+    }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAutoplay();
+    else startAutoplay();
+  });
+  reducedMotionQuery.addEventListener?.('change', startAutoplay);
   updateDots();
-  window.addEventListener('resize', updateDots);
+  measureCycle();
+  window.addEventListener('resize', () => {
+    measureCycle();
+    normalizeScroll();
+    updateDots();
+    startAutoplay();
+  });
+  startAutoplay();
 }
 
 const ctaImage = document.querySelector('.cta-image');

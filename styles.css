@@ -1114,18 +1114,16 @@ body.modal-open { overflow: hidden; }
   .benefits-grid,
   .solutions-grid,
   .management-features { grid-template-columns: 1fr; }
-  .maintenance-carousel { display: block; }
+  .maintenance-carousel { display: flex; gap: 8px; }
   .maintenance-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
     gap: 12px;
-    overflow: visible;
-    scroll-snap-type: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
   }
-  .maintenance-grid .mini-service { flex: none; width: auto; }
+  .maintenance-grid .mini-service { flex: 0 0 min(82vw, 320px); width: auto; }
   .maintenance-grid .mini-service img { filter: none; opacity: 1; }
-  .maintenance-carousel > .carousel-arrow,
-  .maintenance-categories .carousel-dots { display: none; }
   .solution-card.reveal-on-scroll.is-visible,
   .solution-card.reveal-on-scroll.is-visible:hover {
     opacity: 1;
