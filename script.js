@@ -133,13 +133,17 @@ const requestHeaderUpdate = () => {
 updateHeader();
 window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
 
-if (toggle) {
-  toggle.addEventListener('click', () => {
-    if (!nav) return;
-    const isOpen = nav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-}
+const setMenuOpen = isOpen => {
+  if (!nav || !toggle) return;
+  nav.classList.toggle('open', isOpen);
+  toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  document.body.classList.toggle('menu-open', isOpen);
+};
+
+toggle?.addEventListener('click', () => {
+  setMenuOpen(!nav?.classList.contains('open'));
+});
 
 brandLink?.addEventListener('click', event => {
   event.preventDefault();
@@ -150,8 +154,7 @@ brandLink?.addEventListener('click', event => {
 
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    toggle?.setAttribute('aria-expanded', 'false');
+    setMenuOpen(false);
   });
 });
 
@@ -220,6 +223,10 @@ quoteOpeners.forEach(opener => {
 
 quoteClosers.forEach(closer => closer.addEventListener('click', closeQuoteModal));
 document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && nav?.classList.contains('open')) {
+    setMenuOpen(false);
+    toggle?.focus();
+  }
   if (event.key === 'Escape' && quoteModal?.classList.contains('is-open')) closeQuoteModal();
 });
 

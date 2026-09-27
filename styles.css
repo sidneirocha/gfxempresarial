@@ -1042,14 +1042,17 @@ body.modal-open { overflow: hidden; }
 }
 
 @media (max-width: 820px) {
+  body.menu-open { overflow: hidden; }
   .desktop-cta { display: none; }
   .menu-toggle { display: block; }
   .main-nav {
     position: fixed;
     top: 78px;
+    bottom: auto;
     right: 0;
-    bottom: 0;
     width: min(86vw, 340px);
+    height: calc(100vh - 78px);
+    height: calc(100dvh - 78px);
     background: rgba(8,25,43,.98);
     border-radius: 24px 0 0 24px;
     padding: 28px 24px;
@@ -1070,6 +1073,9 @@ body.modal-open { overflow: hidden; }
   }
   .mobile-cta { display: inline-flex; margin-top: 14px; }
   .main-nav a { color: var(--white); }
+  .site-header.scrolled .main-nav a { color: var(--white); }
+  .site-header.scrolled .main-nav a:not(.btn):hover,
+  .site-header.scrolled .main-nav a:not(.btn):focus-visible { color: var(--orange); }
   .main-nav a:not(.btn) {
     width: 100%;
     padding: 12px 0;
