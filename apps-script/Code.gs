@@ -118,10 +118,11 @@ function verifyTurnstile(token, config) {
   if (response.getResponseCode() < 200 || response.getResponseCode() >= 300 || !result.success) {
     throw new Error('A verificação de segurança falhou.');
   }
-  if (result.action && result.action !== config.turnstileAction) {
+  if (result.action !== config.turnstileAction) {
     throw new Error('A verificação de segurança falhou.');
   }
-  if (result.hostname && !config.allowedHostnames.includes(String(result.hostname).toLowerCase())) {
+  const hostname = String(result.hostname || '').trim().toLowerCase();
+  if (!hostname || !config.allowedHostnames.includes(hostname)) {
     throw new Error('A verificação de segurança falhou.');
   }
 }
