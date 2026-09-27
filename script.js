@@ -138,6 +138,46 @@ function closeQuoteModal() {
   quoteModal?.querySelector('.quote-antispam-message')?.setAttribute('hidden', '');
 }
 
+function submitGoogleForm(formData) {
+  const targetName = `google-form-target-${Date.now()}`;
+  const target = document.createElement('iframe');
+  target.name = targetName;
+  target.title = 'Envio do formulário';
+  target.setAttribute('aria-hidden', 'true');
+  target.style.display = 'none';
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = googleFormEndpoint;
+  form.target = targetName;
+  form.style.display = 'none';
+
+  const fields = {
+    'entry.1972608986': formData.nome,
+    'entry.1380888189': formData.email,
+    'entry.512800247': formData.telefone,
+    'entry.1321566934': formData.mensagem,
+  };
+
+  Object.entries(fields).forEach(([name, value]) => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value ?? '';
+    form.append(input);
+  });
+
+  document.body.append(target, form);
+  try {
+    HTMLFormElement.prototype.submit.call(form);
+  } finally {
+    window.setTimeout(() => {
+      target.remove();
+      form.remove();
+    }, 2000);
+  }
+}
+
 quoteOpeners.forEach(opener => {
   opener.addEventListener('click', event => {
     event.preventDefault();
@@ -175,17 +215,7 @@ quoteForm?.addEventListener('submit', async event => {
   const formData = Object.fromEntries(new FormData(quoteForm));
   submitButton.disabled = true;
   try {
-    await fetch(googleFormEndpoint, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        'entry.1972608986': formData.nome,
-        'entry.1380888189': formData.email,
-        'entry.512800247': formData.telefone,
-        'entry.1321566934': formData.mensagem,
-      })
-    });
+    submitGoogleForm(formData);
   } catch (error) {
     if (spamMessage) {
       spamMessage.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
