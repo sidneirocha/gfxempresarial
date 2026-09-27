@@ -218,6 +218,41 @@ p {
   font-size: 14px;
   font-weight: 600;
 }
+.main-nav a:not(.btn) {
+  position: relative;
+  transition: color .22s ease, transform .22s ease;
+}
+.main-nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .28s cubic-bezier(.22,.61,.36,1);
+}
+.main-nav a:not(.btn):hover,
+.main-nav a:not(.btn):focus-visible {
+  color: var(--orange);
+  transform: translateY(-1px);
+}
+.main-nav a:not(.btn):hover::after,
+.main-nav a:not(.btn):focus-visible::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .main-nav a:not(.btn),
+  .main-nav a:not(.btn)::after {
+    transition: none;
+  }
+  .main-nav a:not(.btn):hover,
+  .main-nav a:not(.btn):focus-visible {
+    transform: none;
+  }
+}
 .desktop-cta { white-space: nowrap; }
 .mobile-cta { display: none; }
 .menu-toggle {
@@ -517,6 +552,7 @@ p {
 .about-details p { max-width: 520px; }
 .about-details .btn { margin-top: 28px; }
 .media-card {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -524,6 +560,26 @@ p {
 }
 .media-card img, .solution-image img, .management-media img, .cta-image img {
   width: 100%; height: 100%; object-fit: cover;
+}
+.media-card .about-hover-logo {
+  position: absolute;
+  z-index: 1;
+  top: 28%;
+  right: 10%;
+  width: 112px;
+  height: auto;
+  opacity: 0;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transform: translateY(8px) scale(.88);
+  transition: opacity .35s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .media-card:hover .about-hover-logo {
+    opacity: .94;
+    transform: translateY(0) scale(1);
+  }
 }
 .media-card-offset {
   margin-inline: 28px;
@@ -840,7 +896,40 @@ p {
   align-items: start;
   gap: 56px;
 }
-.footer-brand img { height: 34px; }
+.footer-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 96px;
+  height: 38px;
+}
+.footer-brand img {
+  height: 34px;
+  width: auto;
+  transition: opacity .24s ease, transform .42s cubic-bezier(.22,.61,.36,1);
+}
+.footer-brand::after {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: 1px;
+  width: 34px;
+  height: 34px;
+  background: url("assets/seta.svg") center / contain no-repeat;
+  opacity: 0;
+  transform: scale(.5) rotate(-8deg);
+  transition: left .42s cubic-bezier(.22,.61,.36,1), opacity .2s ease, transform .42s cubic-bezier(.22,.61,.36,1);
+  pointer-events: none;
+}
+.footer-brand:hover img {
+  opacity: 0;
+  transform: translateX(-12px) scale(.84);
+}
+.footer-brand:hover::after {
+  left: 0;
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
 .footer-brand-block p {
   max-width: 320px;
   margin-top: 18px;
@@ -1006,6 +1095,7 @@ body.modal-open { overflow: hidden; }
     font-size: 17px;
     line-height: 1.35;
   }
+  .main-nav a:not(.btn)::after { display: none; }
   .header-inner { min-height: 78px; }
   .hero { min-height: auto; }
   .hero-carousel { min-height: 720px; }
@@ -1060,6 +1150,7 @@ body.modal-open { overflow: hidden; }
   .hero-actions,
   .cta-actions { flex-direction: column; align-items: stretch; }
   .media-card-offset { margin-inline: 0; }
+  .media-card .about-hover-logo { display: none; }
   .management-copy,
   .cta-copy { padding: 34px 24px; }
   .solution-body h3 { font-size: 22px; }
