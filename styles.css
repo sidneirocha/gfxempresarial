@@ -543,25 +543,17 @@ p {
 .media-card img, .solution-image img, .management-media img, .cta-image img {
   width: 100%; height: 100%; object-fit: cover;
 }
-.media-card .about-hover-logo {
+.media-card .about-logo {
   position: absolute;
   z-index: 1;
   top: 28%;
   right: 10%;
   width: 112px;
   height: auto;
-  opacity: 0;
+  opacity: .94;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  transform: translateY(8px) scale(.88);
-  transition: opacity .35s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  transform: translateY(0) scale(1);
   pointer-events: none;
-}
-@media (hover: hover) and (pointer: fine) {
-  .media-card:hover .about-hover-logo {
-    opacity: .94;
-    transform: translateY(0) scale(1);
-  }
 }
 .media-card-offset {
   margin-inline: 28px;
@@ -1133,7 +1125,6 @@ body.modal-open { overflow: hidden; }
   .hero-actions,
   .cta-actions { flex-direction: column; align-items: stretch; }
   .media-card-offset { margin-inline: 0; }
-  .media-card .about-hover-logo { display: none; }
   .management-copy,
   .cta-copy { padding: 34px 24px; }
   .solution-body h3 { font-size: 22px; }
