@@ -6,6 +6,8 @@
   <title>BFX Empresarial</title>
   <meta name="description" content="BFX Empresarial — manutenção, gestão predial, gestão de projetos e terceirização de serviços." />
   <meta name="theme-color" content="#08192b" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self'" />
   <link rel="canonical" href="https://bfxempresarial.com.br/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bfxempresarial.com.br/" />
@@ -21,14 +23,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header" id="topo">
     <div class="container header-inner">
       <a class="brand" href="#topo" aria-label="BFX Empresarial">
-        <img src="assets/logo-bfx-dark.svg" alt="BFX Empresarial" class="logo logo-on-dark">
-        <img src="assets/logo-bfx-light.svg" alt="BFX Empresarial" class="logo logo-on-light">
+        <img loading="lazy" decoding="async" src="assets/logo-bfx-dark.svg" alt="BFX Empresarial" class="logo logo-on-dark">
+        <img loading="lazy" decoding="async" src="assets/logo-bfx-light.svg" alt="BFX Empresarial" class="logo logo-on-light">
       </a>
 
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
@@ -50,7 +53,7 @@
   <main>
     <section class="hero hero-carousel" data-hero-carousel aria-roledescription="carousel" aria-label="Destaques da BFX">
       <div class="hero-slide is-active" data-hero-slide>
-        <div class="hero-bg"><img src="assets/hero-building.png" alt="Edifício corporativo ao entardecer"></div>
+        <div class="hero-bg"><img loading="eager" fetchpriority="high" decoding="async" src="assets/optimized/hero-building.jpg" alt="Edifício corporativo ao entardecer"></div>
         <div class="hero-overlay"></div>
         <div class="container hero-content">
           <div class="hero-copy">
@@ -66,7 +69,7 @@
         </div>
       </div>
       <div class="hero-slide" data-hero-slide>
-        <div class="hero-bg"><img src="assets/hero-maintenance.png" alt="Técnico da BFX entrando em um edifício corporativo"></div>
+        <div class="hero-bg"><img loading="eager" decoding="async" src="assets/optimized/hero-maintenance.jpg" alt="Técnico da BFX entrando em um edifício corporativo"></div>
         <div class="hero-overlay hero-overlay-secondary"></div>
         <div class="container hero-content">
           <div class="hero-copy">
@@ -138,8 +141,8 @@
           </div>
         </div>
         <div class="media-card media-card-offset">
-          <img src="assets/about-building.png" alt="Técnico acompanhando um edifício corporativo ao entardecer">
-          <img class="about-hover-logo" src="assets/logo-bfx-light.svg" alt="BFX Empresarial">
+          <img loading="lazy" decoding="async" src="assets/optimized/about-building.jpg" alt="Técnico acompanhando um edifício corporativo ao entardecer">
+          <img loading="lazy" decoding="async" class="about-hover-logo" src="assets/logo-bfx-light.svg" alt="BFX Empresarial">
         </div>
       </div>
     </section>
@@ -155,28 +158,28 @@
 
         <div class="solutions-grid">
           <article class="solution-card">
-            <div class="solution-image"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_08-1.png" alt="Manutenção predial"></div>
+            <div class="solution-image"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_08-1.jpg" alt="Manutenção predial"></div>
             <div class="solution-body">
               <h3>Manutenção Predial</h3>
               <p>Atendimento preventivo e corretivo para garantir segurança e continuidade da operação.</p>
             </div>
           </article>
           <article class="solution-card">
-            <div class="solution-image"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_09-2.png" alt="Gestão predial"></div>
+            <div class="solution-image"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_09-2.jpg" alt="Gestão predial"></div>
             <div class="solution-body">
               <h3>Gestão Predial</h3>
               <p>Acompanhamento do funcionamento, fornecedores e rotinas do empreendimento.</p>
             </div>
           </article>
           <article class="solution-card">
-            <div class="solution-image"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_10-3.png" alt="Gestão de projetos"></div>
+            <div class="solution-image"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_10-3.jpg" alt="Gestão de projetos"></div>
             <div class="solution-body">
               <h3>Gestão de Projetos</h3>
               <p>Planejamento e coordenação de melhorias, adequações e intervenções.</p>
             </div>
           </article>
           <article class="solution-card">
-            <div class="solution-image"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_11-4.png" alt="Terceirização de serviços"></div>
+            <div class="solution-image"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_11-4.jpg" alt="Terceirização de serviços"></div>
             <div class="solution-body">
               <h3>Terceirização de Serviços</h3>
               <p>Apoio operacional sob medida para cada tipo de empreendimento.</p>
@@ -196,35 +199,35 @@
           <button class="carousel-arrow carousel-arrow-prev" type="button" aria-label="Manutenções anteriores" data-carousel-prev>←</button>
           <div class="maintenance-grid" data-carousel-track tabindex="0" aria-label="Tipos de manutenção">
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_54-1.png" alt="Climatização"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_54-1.jpg" alt="Climatização"></div>
             <h3>Climatização</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_56-2.png" alt="Hidráulica"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_56-2.jpg" alt="Hidráulica"></div>
             <h3>Hidráulica</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_57-3.png" alt="Pintura e acabamento"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_57-3.jpg" alt="Pintura e acabamento"></div>
             <h3>Pintura e acabamento</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_58-4.png" alt="Áreas comuns"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_58-4.jpg" alt="Áreas comuns"></div>
             <h3>Áreas comuns</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_59-5.png" alt="Conservação e limpeza"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_59-5.jpg" alt="Conservação e limpeza"></div>
               <h3>Conservação e limpeza</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_00-6.png" alt="Inspeções técnicas"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_00-6.jpg" alt="Inspeções técnicas"></div>
               <h3>Inspeções técnicas</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_01-7.png" alt="Paisagismo"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_01-7.jpg" alt="Paisagismo"></div>
               <h3>Paisagismo</h3>
             </article>
             <article class="mini-service">
-              <div class="mini-service-media"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_02-8.png" alt="Pequenos reparos"></div>
+              <div class="mini-service-media"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_02-8.jpg" alt="Pequenos reparos"></div>
               <h3>Pequenos reparos</h3>
             </article>
           </div>
@@ -265,7 +268,7 @@
           </div>
         </div>
         <div class="management-media">
-          <img src="assets/tech-management.png" alt="Gestão predial com apoio de tecnologia">
+          <img loading="lazy" decoding="async" src="assets/optimized/tech-management.jpg" alt="Gestão predial com apoio de tecnologia">
         </div>
       </div>
     </section>
@@ -281,7 +284,7 @@
           </div>
         </div>
         <div class="cta-image">
-          <img src="assets/contact-building.png" alt="Edifício corporativo com detalhes arquitetônicos em laranja">
+          <img loading="lazy" decoding="async" src="assets/optimized/contact-building.jpg" alt="Edifício corporativo com detalhes arquitetônicos em laranja">
         </div>
       </div>
     </section>
@@ -291,7 +294,7 @@
     <div class="container footer-inner">
       <div class="footer-brand-block">
         <a href="#topo" class="footer-brand" aria-label="BFX Empresarial">
-          <img src="assets/logo-bfx-dark.svg" alt="BFX Empresarial">
+          <img loading="lazy" decoding="async" src="assets/logo-bfx-dark.svg" alt="BFX Empresarial">
         </a>
         <p>Manutenção e gestão predial para manter seu patrimônio seguro, eficiente e sempre em funcionamento.</p>
       </div>
@@ -332,6 +335,7 @@
         <label>Como podemos ajudar?<textarea name="mensagem" rows="4" maxlength="800" spellcheck="true"></textarea></label>
         <label class="quote-antispam" aria-hidden="true">Empresa<input type="text" name="empresa" tabindex="-1" autocomplete="off"></label>
         <input type="hidden" name="started_at" value="">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFFlGY8YoVZcRsYg" data-action="quote" data-callback="bfxTurnstileSuccess" data-expired-callback="bfxTurnstileExpired" data-error-callback="bfxTurnstileError"></div>
         <button class="btn btn-primary" type="submit">Enviar solicitação</button>
       </form>
       <p class="quote-antispam-message" role="alert" hidden>Não foi possível enviar agora. Tente novamente.</p>

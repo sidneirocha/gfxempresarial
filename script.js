@@ -9,12 +9,26 @@ const quoteClosers = document.querySelectorAll('[data-close-quote]');
 const quoteForm = document.querySelector('.quote-form');
 const quoteSuccess = document.querySelector('.quote-success');
 const appsScriptEndpoint = 'https://script.google.com/macros/s/AKfycbxhM8h9FjhE2Eg9PGPhToWl1LqXWYVGnlBVxqtxIq2sMG65mqaaGfuNBYK34Z6Y2MsB/exec';
-/*
-const googleFormEndpoint = 'https://docs.google.com/forms/d/e/1FAIpQLScbII6wtXlUvSV6XiUj8ed4rE6GgGAvT0dCcduRKFiLix_Bw/formResponse';
-*/
 const heroCarousel = document.querySelector('[data-hero-carousel]');
 const maintenanceCarousel = document.querySelector('[data-maintenance-carousel]');
 let quoteOpenedAt = 0;
+let turnstilePassed = false;
+
+window.bfxTurnstileSuccess = token => {
+  turnstilePassed = Boolean(token);
+  const submitButton = quoteForm?.querySelector('button[type="submit"]');
+  if (submitButton) submitButton.disabled = !turnstilePassed;
+};
+window.bfxTurnstileExpired = () => {
+  turnstilePassed = false;
+  const submitButton = quoteForm?.querySelector('button[type="submit"]');
+  if (submitButton) submitButton.disabled = true;
+};
+window.bfxTurnstileError = () => {
+  turnstilePassed = false;
+  const submitButton = quoteForm?.querySelector('button[type="submit"]');
+  if (submitButton) submitButton.disabled = true;
+};
 
 document.querySelectorAll('.hero-copy h1').forEach(heading => {
   const text = heading.textContent.trim();
@@ -63,11 +77,16 @@ const updateSolutionScrollMotion = () => {
   solutionScrollFrame = 0;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const compactLayout = window.innerWidth <= 640;
+  const sectionBounds = solutionsSection?.getBoundingClientRect();
+  if (!sectionBounds) return;
   const viewportCenter = window.innerHeight * .52;
   const travel = Math.max(window.innerHeight * .6, 1);
+  const startTop = window.innerHeight * .92;
+  const centerTop = window.innerHeight * .52 - sectionBounds.height / 2;
+  const sectionProgress = Math.max(0, Math.min(1, (startTop - sectionBounds.top) / Math.max(startTop - centerTop, 1)));
   solutionCards.forEach(card => {
     const bounds = card.getBoundingClientRect();
-  if (reducedMotion || compactLayout) {
+    if (reducedMotion || compactLayout) {
       card.style.setProperty('--solution-opacity', '1');
       card.style.setProperty('--solution-reveal-y', '0px');
       card.style.setProperty('--solution-reveal-x', '0px');
@@ -75,11 +94,6 @@ const updateSolutionScrollMotion = () => {
       card.style.setProperty('--scroll-lift', '0px');
       return;
     }
-    const sectionBounds = solutionsSection?.getBoundingClientRect();
-    if (!sectionBounds) return;
-    const startTop = window.innerHeight * .92;
-    const centerTop = window.innerHeight * .52 - sectionBounds.height / 2;
-    const sectionProgress = Math.max(0, Math.min(1, (startTop - sectionBounds.top) / Math.max(startTop - centerTop, 1)));
     const cardStart = solutionCards.indexOf(card) * .22;
     const entryProgress = Math.max(0, Math.min(1, (sectionProgress - cardStart) / (1 - cardStart)));
     const distance = (viewportCenter - (bounds.top + bounds.height / 2)) / travel;
@@ -99,6 +113,7 @@ window.addEventListener('resize', requestSolutionScrollMotion);
 requestSolutionScrollMotion();
 
 function updateHeader() {
+  if (!header) return;
   if (window.scrollY > 24) {
     header.classList.add('scrolled');
   } else {
@@ -106,11 +121,21 @@ function updateHeader() {
   }
 }
 
+let headerFrame = 0;
+const requestHeaderUpdate = () => {
+  if (!headerFrame) {
+    headerFrame = requestAnimationFrame(() => {
+      headerFrame = 0;
+      updateHeader();
+    });
+  }
+};
 updateHeader();
-window.addEventListener('scroll', updateHeader);
+window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
 
 if (toggle) {
   toggle.addEventListener('click', () => {
+    if (!nav) return;
     const isOpen = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(isOpen));
   });
@@ -139,41 +164,34 @@ function closeQuoteModal() {
   if (quoteForm) quoteForm.hidden = false;
   if (quoteSuccess) quoteSuccess.hidden = true;
   quoteModal?.querySelector('.quote-antispam-message')?.setAttribute('hidden', '');
+  turnstilePassed = false;
+  window.turnstile?.reset();
 }
 
-function submitToAppsScript(formData) {
+async function submitToAppsScript(formData) {
   if (!appsScriptEndpoint.startsWith('https://script.google.com/macros/s/')) {
     throw new Error('Endpoint do Apps Script não configurado.');
   }
-  const targetName = `apps-script-target-${Date.now()}`;
-  const target = document.createElement('iframe');
-  target.name = targetName;
-  target.title = 'Envio do formulário';
-  target.setAttribute('aria-hidden', 'true');
-  target.style.display = 'none';
-
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = appsScriptEndpoint;
-  form.target = targetName;
-  form.style.display = 'none';
-
-  Object.entries(formData).forEach(([name, value]) => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value ?? '';
-    form.append(input);
+  const response = await fetch(appsScriptEndpoint, {
+    method: 'POST',
+    body: new URLSearchParams(formData),
   });
-
-  document.body.append(target, form);
+  const responseText = await response.text();
+  let result;
   try {
-    HTMLFormElement.prototype.submit.call(form);
-  } finally {
-    window.setTimeout(() => {
-      target.remove();
-      form.remove();
-    }, 5000);
+    result = JSON.parse(responseText);
+  } catch (_) {
+    throw new Error('O serviço de atendimento está indisponível.');
+  }
+  if (!response.ok && !result.message) throw new Error('O serviço de atendimento está indisponível.');
+  if (!result.success) throw new Error(result.message || 'Não foi possível enviar a solicitação.');
+  return result;
+}
+
+function showQuoteError(message, spamMessage) {
+  if (spamMessage) {
+    spamMessage.textContent = message;
+    spamMessage.hidden = false;
   }
 }
 
@@ -183,7 +201,9 @@ quoteOpeners.forEach(opener => {
     quoteModal?.classList.remove('is-success');
     if (quoteForm) quoteForm.hidden = false;
     const submitButton = quoteForm?.querySelector('button[type="submit"]');
-    if (submitButton) submitButton.disabled = false;
+    if (submitButton) submitButton.disabled = true;
+    turnstilePassed = false;
+    window.turnstile?.reset();
     if (quoteSuccess) quoteSuccess.hidden = true;
     const spamMessage = quoteModal?.querySelector('.quote-antispam-message');
     spamMessage?.setAttribute('hidden', '');
@@ -207,9 +227,14 @@ quoteForm?.addEventListener('submit', async event => {
   event.preventDefault();
   const honeypot = quoteForm.elements.namedItem('empresa');
   const spamMessage = quoteModal?.querySelector('.quote-antispam-message');
-  const submittedTooFast = Date.now() - quoteOpenedAt < 900;
+  const submittedTooFast = Date.now() - quoteOpenedAt < 1400;
   if (honeypot?.value.trim() || submittedTooFast) {
-    if (spamMessage) spamMessage.hidden = false;
+    showQuoteError('Preencha o formulário com calma e tente novamente.', spamMessage);
+    return;
+  }
+  const turnstileToken = quoteForm.elements.namedItem('cf-turnstile-response')?.value;
+  if (!turnstileToken || !turnstilePassed) {
+    showQuoteError('Confirme a verificação de segurança e tente novamente.', spamMessage);
     return;
   }
   const submitButton = quoteForm.querySelector('button[type="submit"]');
@@ -217,13 +242,12 @@ quoteForm?.addEventListener('submit', async event => {
   if (spamMessage) spamMessage.hidden = true;
   submitButton.disabled = true;
   try {
-    submitToAppsScript(formData);
+    await submitToAppsScript(formData);
   } catch (error) {
-    if (spamMessage) {
-      spamMessage.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
-      spamMessage.hidden = false;
-    }
-    submitButton.disabled = false;
+    showQuoteError(error.message || 'Não foi possível enviar agora. Tente novamente em instantes.', spamMessage);
+    turnstilePassed = false;
+    window.turnstile?.reset();
+    submitButton.disabled = true;
     return;
   }
   quoteModal?.classList.add('is-success');
@@ -239,11 +263,19 @@ if (heroCarousel) {
   const next = heroCarousel.querySelector('[data-hero-next]');
   const progress = heroCarousel.querySelector('.hero-progress');
   const progressFill = heroCarousel.querySelector('[data-hero-progress]');
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let activeIndex = 0;
   let rotation;
+  let hoverPaused = false;
+  let focusPaused = false;
 
   const restartProgress = () => {
     if (!progressFill) return;
+    if (reducedMotionQuery.matches) {
+      progressFill.style.animation = 'none';
+      progress?.classList.add('is-paused');
+      return;
+    }
     progress?.classList.remove('is-paused');
     progressFill.style.animation = 'none';
     void progressFill.offsetWidth;
@@ -253,8 +285,10 @@ if (heroCarousel) {
   const renderHero = index => {
     activeIndex = (index + slides.length) % slides.length;
     slides.forEach((slide, slideIndex) => {
-      slide.classList.toggle('is-active', slideIndex === activeIndex);
-      slide.setAttribute('aria-hidden', String(slideIndex !== activeIndex));
+      const isActive = slideIndex === activeIndex;
+      slide.classList.toggle('is-active', isActive);
+      slide.setAttribute('aria-hidden', String(!isActive));
+      slide.toggleAttribute('inert', !isActive);
     });
     dotsContainer?.querySelectorAll('.hero-carousel-dot').forEach((dot, dotIndex) => {
       dot.classList.toggle('is-active', dotIndex === activeIndex);
@@ -270,18 +304,41 @@ if (heroCarousel) {
     dot.addEventListener('click', () => { renderHero(index); restartRotation(); });
     dotsContainer?.append(dot);
   });
-  const restartRotation = () => {
+  const stopRotation = () => {
     clearInterval(rotation);
+    rotation = undefined;
+    progress?.classList.add('is-paused');
+  };
+  const canRotate = () => !reducedMotionQuery.matches && !document.hidden && !hoverPaused && !focusPaused;
+  const restartRotation = () => {
+    stopRotation();
+    if (!canRotate()) return;
     progress?.classList.remove('is-paused');
     rotation = setInterval(() => renderHero(activeIndex + 1), 7000);
   };
   previous?.addEventListener('click', () => { renderHero(activeIndex - 1); restartRotation(); });
   next?.addEventListener('click', () => { renderHero(activeIndex + 1); restartRotation(); });
   heroCarousel.addEventListener('mouseenter', () => {
-    clearInterval(rotation);
-    progress?.classList.add('is-paused');
+    hoverPaused = true;
+    stopRotation();
   });
-  heroCarousel.addEventListener('mouseleave', restartRotation);
+  heroCarousel.addEventListener('mouseleave', () => {
+    hoverPaused = false;
+    restartRotation();
+  });
+  heroCarousel.addEventListener('focusin', () => {
+    focusPaused = true;
+    stopRotation();
+  });
+  heroCarousel.addEventListener('focusout', event => {
+    if (!heroCarousel.contains(event.relatedTarget)) {
+      focusPaused = false;
+      restartRotation();
+    }
+  });
+  document.addEventListener('visibilitychange', restartRotation);
+  reducedMotionQuery.addEventListener?.('change', restartRotation);
+  renderHero(0);
   restartRotation();
 }
 

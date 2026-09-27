@@ -78,6 +78,7 @@ const zoomValue = lightbox?.querySelector('[data-zoom-value]');
 const galleryImages = [...document.querySelectorAll('.photo-photo img')];
 let activeImageIndex = 0;
 let zoomLevel = 1;
+let lastFocusedImage = null;
 
 function renderZoom() {
   if (!lightboxImage || !zoomValue) return;
@@ -90,6 +91,8 @@ function closeLightbox() {
   lightbox.hidden = true;
   document.body.classList.remove('lightbox-open');
   if (lightboxImage) lightboxImage.removeAttribute('src');
+  lastFocusedImage?.focus();
+  lastFocusedImage = null;
 }
 
 function showImage(index) {
@@ -104,6 +107,7 @@ function showImage(index) {
 
 function openLightbox(image) {
   if (!lightbox || !lightboxImage) return;
+  lastFocusedImage = image.closest('.photo-photo');
   showImage(galleryImages.indexOf(image));
   lightbox.hidden = false;
   document.body.classList.add('lightbox-open');
@@ -156,4 +160,18 @@ document.addEventListener('keydown', event => {
   if (event.key === '+' || event.key === '=') lightbox.querySelector('[data-zoom-in]')?.click();
   if (event.key === '-') lightbox.querySelector('[data-zoom-out]')?.click();
   if (event.key === '0') { zoomLevel = 1; renderZoom(); }
+  if (event.key === 'Tab') {
+    const focusable = [...lightbox.querySelectorAll('button, [tabindex="0"]')]
+      .filter(element => !element.disabled && !element.hidden);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
 });

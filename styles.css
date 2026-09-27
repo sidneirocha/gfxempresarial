@@ -799,7 +799,6 @@ p {
   opacity: 0;
   pointer-events: none;
   transform: translate3d(14px, 14px, 0) rotate(var(--management-arrow-rotate, 0deg)) scale(.72);
-  will-change: left, top, transform;
   transition: opacity .24s ease, left .32s cubic-bezier(.34,1.56,.64,1), top .32s cubic-bezier(.34,1.56,.64,1), transform .46s cubic-bezier(.34,1.56,.64,1);
 }
 .management-media:hover::after {
@@ -866,7 +865,6 @@ p {
   max-width: none;
   transform: translate3d(calc(-8% + var(--cta-shift-x, 0px)), var(--cta-shift-y, 0px), 0);
   transition: transform .28s cubic-bezier(.22,.61,.36,1);
-  will-change: transform;
 }
 
 .site-footer {
@@ -982,6 +980,8 @@ p {
   font-size: 28px; line-height: 1; cursor: pointer;
 }
 .quote-form { display: grid; gap: 14px; margin-top: 24px; }
+.quote-form .cf-turnstile { min-height: 65px; margin-top: 4px; }
+.quote-form button[type="submit"]:disabled { cursor: wait; opacity: .55; filter: grayscale(.35); }
 .quote-form label { display: grid; gap: 7px; font-size: 13px; font-weight: 700; color: var(--navy); }
 .quote-form input, .quote-form textarea {
   width: 100%; border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px;

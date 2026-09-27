@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self'">
   <title>Guia de estilo — BFX Empresarial</title>
   <meta name="description" content="Guia de estilo visual da BFX Empresarial.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -17,10 +19,10 @@
       <header class="guide-hero" id="topo">
         <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button>
         <div class="guide-hero-image">
-          <img src="assets/hero-building.png" alt="Edifício corporativo BFX ao entardecer">
+          <img loading="eager" fetchpriority="high" decoding="async" src="assets/optimized/hero-building.jpg" alt="Edifício corporativo BFX ao entardecer">
           <div class="guide-hero-overlay"></div>
           <button class="guide-hero-brand" type="button" aria-label="Passe o mouse para demonstrar o hover do logo">
-            <img src="assets/logo-bfx-dark.svg" alt="BFX Empresarial">
+            <img loading="lazy" decoding="async" src="assets/logo-bfx-dark.svg" alt="BFX Empresarial">
           </button>
           <div class="guide-hero-content">
             <div class="eyebrow"><span></span> Guia de estilo</div>
@@ -41,31 +43,31 @@
         <div class="logo-grid">
           <article class="logo-card logo-card-light">
             <span class="sample-label">Fundo claro / principal</span>
-            <img src="assets/logo-bfx-light.svg" alt="BFX Empresarial — versão escura">
+            <img loading="lazy" decoding="async" src="assets/logo-bfx-light.svg" alt="BFX Empresarial — versão escura">
             <div class="asset-code"><code>logo-bfx-light.svg</code></div>
             <a class="asset-download" href="assets/logo-bfx-light.svg" download>Baixar SVG ↓</a>
           </article>
           <article class="logo-card logo-card-dark">
             <span class="sample-label">Fundo escuro / reversa</span>
-            <img src="assets/logo-bfx-dark.svg" alt="BFX Empresarial — versão clara">
+            <img loading="lazy" decoding="async" src="assets/logo-bfx-dark.svg" alt="BFX Empresarial — versão clara">
             <div class="asset-code"><code>logo-bfx-dark.svg</code></div>
             <a class="asset-download" href="assets/logo-bfx-dark.svg" download>Baixar SVG ↓</a>
           </article>
           <article class="logo-card logo-card-light logo-card-wide">
             <span class="sample-label">Assinatura horizontal</span>
-            <img src="assets/logo-bfx-horizontal-light.svg" alt="BFX Empresarial — assinatura horizontal">
+            <img loading="lazy" decoding="async" src="assets/logo-bfx-horizontal-light.svg" alt="BFX Empresarial — assinatura horizontal">
             <div class="asset-code"><code>logo-bfx-horizontal-light.svg</code></div>
             <a class="asset-download" href="assets/logo-bfx-horizontal-light.svg" download>Baixar SVG ↓</a>
           </article>
           <article class="logo-card logo-card-dark logo-card-wide">
             <span class="sample-label">Assinatura horizontal / reversa</span>
-            <img src="assets/logo-bfx-horizontal-dark.svg" alt="BFX Empresarial — assinatura horizontal clara">
+            <img loading="lazy" decoding="async" src="assets/logo-bfx-horizontal-dark.svg" alt="BFX Empresarial — assinatura horizontal clara">
             <div class="asset-code"><code>logo-bfx-horizontal-dark.svg</code></div>
             <a class="asset-download" href="assets/logo-bfx-horizontal-dark.svg" download>Baixar SVG ↓</a>
           </article>
           <article class="logo-card logo-card-dark logo-card-favicon">
             <span class="sample-label">Favicon / ícone do site</span>
-            <img src="assets/favicon.svg" alt="Favicon BFX Empresarial">
+            <img loading="lazy" decoding="async" src="assets/favicon.svg" alt="Favicon BFX Empresarial">
             <div class="asset-code"><code>favicon.svg</code></div>
             <a class="asset-download" href="assets/favicon.svg" download>Baixar SVG ↓</a>
           </article>
@@ -102,27 +104,27 @@
           </div>
           <div class="motion-demo">
             <span class="sample-label">Imagem / hover</span>
-            <div class="motion-image-stage" tabindex="0" aria-label="Demonstração do hover das imagens"><img src="assets/about-building.png" alt="Técnico acompanhando um edifício corporativo"><span>Ver imagem</span></div>
+            <div class="motion-image-stage" tabindex="0" aria-label="Demonstração do hover das imagens"><img loading="lazy" decoding="async" src="assets/optimized/about-building.jpg" alt="Técnico acompanhando um edifício corporativo"><span>Ver imagem</span></div>
             <h3>Imagem em foco.</h3>
             <p>Passe o mouse para ampliar, escurecer e revelar a seta de interação.</p>
           </div>
           <div class="motion-demo">
             <span class="sample-label">Imagem / cursor</span>
-            <div class="motion-management-stage" data-management-demo tabindex="0" aria-label="Demonstração da seta que acompanha o cursor"><img src="assets/tech-management.png" alt="Gestão predial com apoio de tecnologia"></div>
+            <div class="motion-management-stage" data-management-demo tabindex="0" aria-label="Demonstração da seta que acompanha o cursor"><img loading="lazy" decoding="async" src="assets/optimized/tech-management.jpg" alt="Gestão predial com apoio de tecnologia"></div>
             <h3>Seta que acompanha.</h3>
             <p>Mova o cursor sobre a imagem para posicionar a seta e alterar levemente sua rotação.</p>
           </div>
           <div class="motion-demo">
             <span class="sample-label">Imagem / parallax</span>
-            <div class="motion-cta-stage" data-cta-demo tabindex="0" aria-label="Demonstração do deslocamento da imagem"><img src="assets/contact-building.png" alt="Edifício corporativo com detalhes arquitetônicos em laranja"></div>
+            <div class="motion-cta-stage" data-cta-demo tabindex="0" aria-label="Demonstração do deslocamento da imagem"><img loading="lazy" decoding="async" src="assets/optimized/contact-building.jpg" alt="Edifício corporativo com detalhes arquitetônicos em laranja"></div>
             <h3>Profundidade em movimento.</h3>
             <p>O deslocamento suave da imagem acompanha o ponteiro e cria profundidade no CTA.</p>
           </div>
           <div class="motion-demo">
             <span class="sample-label">Logo / hover do hero</span>
             <button class="motion-hero-logo-demo" type="button" aria-label="Demonstração do hover do logo do hero">
-              <img class="motion-hero-logo-light" src="assets/logo-bfx-light.svg" alt="BFX Empresarial">
-              <img class="motion-hero-logo-dark" src="assets/logo-bfx-dark.svg" alt="" aria-hidden="true">
+              <img loading="lazy" decoding="async" class="motion-hero-logo-light" src="assets/logo-bfx-light.svg" alt="BFX Empresarial">
+              <img loading="lazy" decoding="async" class="motion-hero-logo-dark" src="assets/logo-bfx-dark.svg" alt="" aria-hidden="true">
             </button>
             <h3>Seta em destaque.</h3>
             <p>Passe o mouse sobre o logo para recuar a assinatura e revelar a seta laranja.</p>
@@ -179,39 +181,39 @@
         <div class="photo-group">
           <div class="photo-group-heading"><span>01</span><div><p class="section-label">Presença e arquitetura</p><h3>Cenários que sustentam a operação.</h3><p>Imagens institucionais para apresentar a escala, o ambiente e a assinatura visual da BFX.</p></div></div>
           <div class="photo-grid">
-          <figure class="photo-photo photo-large"><img src="assets/hero-maintenance.png" alt="Técnico caminhando em um edifício corporativo"><figcaption><strong>01 / Presença</strong><span>Pessoas em movimento, nunca posadas.</span><a class="asset-download" href="assets/hero-maintenance.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/hero-building.png" alt="Edifício corporativo ao entardecer"><figcaption><strong>02 / Estrutura</strong><span>Arquitetura como prova de escala.</span><a class="asset-download" href="assets/hero-building.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/tech-management.png" alt="Técnico usando tecnologia em um edifício"><figcaption><strong>03 / Precisão</strong><span>Ferramentas, dados e decisão.</span><a class="asset-download" href="assets/tech-management.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/about-building.png" alt="Profissional acompanhando um edifício ao entardecer"><figcaption><strong>04 / Contexto</strong><span>Patrimônio como cenário.</span><a class="asset-download" href="assets/about-building.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/contact-building.png" alt="Edifício com detalhes arquitetônicos em laranja"><figcaption><strong>05 / Assinatura</strong><span>Geometria e luz BFX.</span><a class="asset-download" href="assets/contact-building.png" download>Baixar PNG ↓</a></figcaption></figure>
+          <figure class="photo-photo photo-large"><img loading="lazy" decoding="async" src="assets/optimized/hero-maintenance.jpg" alt="Técnico caminhando em um edifício corporativo"><figcaption><strong>01 / Presença</strong><span>Pessoas em movimento, nunca posadas.</span><a class="asset-download" href="assets/optimized/hero-maintenance.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/hero-building.jpg" alt="Edifício corporativo ao entardecer"><figcaption><strong>02 / Estrutura</strong><span>Arquitetura como prova de escala.</span><a class="asset-download" href="assets/optimized/hero-building.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/tech-management.jpg" alt="Técnico usando tecnologia em um edifício"><figcaption><strong>03 / Precisão</strong><span>Ferramentas, dados e decisão.</span><a class="asset-download" href="assets/optimized/tech-management.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/about-building.jpg" alt="Profissional acompanhando um edifício ao entardecer"><figcaption><strong>04 / Contexto</strong><span>Patrimônio como cenário.</span><a class="asset-download" href="assets/optimized/about-building.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/contact-building.jpg" alt="Edifício com detalhes arquitetônicos em laranja"><figcaption><strong>05 / Assinatura</strong><span>Geometria e luz BFX.</span><a class="asset-download" href="assets/optimized/contact-building.jpg" download>Baixar imagem ↓</a></figcaption></figure>
           </div>
         </div>
         <div class="photo-group">
           <div class="photo-group-heading"><span>02</span><div><p class="section-label">Soluções e gestão</p><h3>Pessoas em movimento.</h3><p>Registros para comunicar manutenção, gestão predial, projetos e serviços terceirizados.</p></div></div>
           <div class="photo-grid">
-          <figure class="photo-photo"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_08-1.png" alt="Manutenção predial"><figcaption><strong>06 / Manutenção</strong><span>Operação em primeiro plano.</span><a class="asset-download" href="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_08-1.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_09-2.png" alt="Gestão predial"><figcaption><strong>07 / Gestão</strong><span>Rotina, escala e controle.</span><a class="asset-download" href="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_09-2.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_10-3.png" alt="Gestão de projetos"><figcaption><strong>08 / Projetos</strong><span>Colaboração e planejamento.</span><a class="asset-download" href="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_10-3.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_11-4.png" alt="Terceirização de serviços"><figcaption><strong>09 / Serviços</strong><span>Eficiência no detalhe.</span><a class="asset-download" href="assets/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_11-4.png" download>Baixar PNG ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_08-1.jpg" alt="Manutenção predial"><figcaption><strong>06 / Manutenção</strong><span>Operação em primeiro plano.</span><a class="asset-download" href="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_08-1.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_09-2.jpg" alt="Gestão predial"><figcaption><strong>07 / Gestão</strong><span>Rotina, escala e controle.</span><a class="asset-download" href="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_09-2.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_10-3.jpg" alt="Gestão de projetos"><figcaption><strong>08 / Projetos</strong><span>Colaboração e planejamento.</span><a class="asset-download" href="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_10-3.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_11-4.jpg" alt="Terceirização de serviços"><figcaption><strong>09 / Serviços</strong><span>Eficiência no detalhe.</span><a class="asset-download" href="assets/optimized/novas-imagens/Imagem do ChatGPT 27 de set. de 2026, 11_37_11-4.jpg" download>Baixar imagem ↓</a></figcaption></figure>
           </div>
         </div>
         <div class="photo-group">
           <div class="photo-group-heading"><span>03</span><div><p class="section-label">Manutenção técnica</p><h3>Cuidado em cada detalhe.</h3><p>Biblioteca de serviços para ilustrar precisão, prevenção e continuidade operacional.</p></div></div>
           <div class="photo-grid">
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_54-1.png" alt="Climatização"><figcaption><strong>10 / Climatização</strong><span>Manutenção técnica.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_54-1.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_56-2.png" alt="Hidráulica"><figcaption><strong>11 / Hidráulica</strong><span>Infraestrutura em ação.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_56-2.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_57-3.png" alt="Pintura e acabamento"><figcaption><strong>12 / Acabamento</strong><span>Precisão e cuidado.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_57-3.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_58-4.png" alt="Áreas comuns"><figcaption><strong>13 / Áreas comuns</strong><span>Ambientes em movimento.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_58-4.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_59-5.png" alt="Conservação e limpeza"><figcaption><strong>14 / Conservação</strong><span>Continuidade da operação.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_59-5.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_00-6.png" alt="Inspeções técnicas"><figcaption><strong>15 / Inspeções</strong><span>Olhar preventivo.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_00-6.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_01-7.png" alt="Paisagismo"><figcaption><strong>16 / Paisagismo</strong><span>Cuidado com o entorno.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_01-7.png" download>Baixar PNG ↓</a></figcaption></figure>
-          <figure class="photo-photo"><img src="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_02-8.png" alt="Pequenos reparos"><figcaption><strong>17 / Reparos</strong><span>Resposta rápida.</span><a class="asset-download" href="assets/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_02-8.png" download>Baixar PNG ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_54-1.jpg" alt="Climatização"><figcaption><strong>10 / Climatização</strong><span>Manutenção técnica.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_54-1.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_56-2.jpg" alt="Hidráulica"><figcaption><strong>11 / Hidráulica</strong><span>Infraestrutura em ação.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_56-2.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_57-3.jpg" alt="Pintura e acabamento"><figcaption><strong>12 / Acabamento</strong><span>Precisão e cuidado.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_57-3.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_58-4.jpg" alt="Áreas comuns"><figcaption><strong>13 / Áreas comuns</strong><span>Ambientes em movimento.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_58-4.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_59-5.jpg" alt="Conservação e limpeza"><figcaption><strong>14 / Conservação</strong><span>Continuidade da operação.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_41_59-5.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_00-6.jpg" alt="Inspeções técnicas"><figcaption><strong>15 / Inspeções</strong><span>Olhar preventivo.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_00-6.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_01-7.jpg" alt="Paisagismo"><figcaption><strong>16 / Paisagismo</strong><span>Cuidado com o entorno.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_01-7.jpg" download>Baixar imagem ↓</a></figcaption></figure>
+          <figure class="photo-photo"><img loading="lazy" decoding="async" src="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_02-8.jpg" alt="Pequenos reparos"><figcaption><strong>17 / Reparos</strong><span>Resposta rápida.</span><a class="asset-download" href="assets/optimized/novas-imagens/servicos/Imagem do ChatGPT 27 de set. de 2026, 11_42_02-8.jpg" download>Baixar imagem ↓</a></figcaption></figure>
           </div>
         </div>
         <div class="photo-rules"><span><b>Preferir</b> luz lateral, reflexos e profundidade.</span><span><b>Evitar</b> banco de imagem genérico e saturação excessiva.</span></div>
       </section>
 
-      <footer class="guide-footer"><img class="theme-logo" src="assets/logo-bfx-dark.svg" data-dark-src="assets/logo-bfx-dark.svg" data-light-src="assets/logo-bfx-light.svg" alt="BFX Empresarial"><span>Guia interno · BFX Empresarial</span><a href="#topo">Voltar ao início ↑</a></footer>
+      <footer class="guide-footer"><img loading="lazy" decoding="async" class="theme-logo" src="assets/logo-bfx-dark.svg" data-dark-src="assets/logo-bfx-dark.svg" data-light-src="assets/logo-bfx-light.svg" alt="BFX Empresarial"><span>Guia interno · BFX Empresarial</span><a href="#topo">Voltar ao início ↑</a></footer>
     </div>
   </main>
   <div class="image-lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Visualização ampliada">
@@ -224,7 +226,7 @@
       <button type="button" data-zoom-in aria-label="Aumentar zoom">+</button>
     </div>
     <div class="lightbox-stage" data-lightbox-stage tabindex="0">
-      <img data-lightbox-image alt="">
+      <img loading="lazy" decoding="async" data-lightbox-image alt="">
     </div>
   </div>
   <script src="style-guide.js"></script>
