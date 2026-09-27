@@ -8,7 +8,10 @@ const quoteOpeners = document.querySelectorAll('.js-open-quote');
 const quoteClosers = document.querySelectorAll('[data-close-quote]');
 const quoteForm = document.querySelector('.quote-form');
 const quoteSuccess = document.querySelector('.quote-success');
-const googleFormEndpoint = 'https://docs.google.com/forms/d/e/17ekoahw72W65QWBbxxGp6jT_BXaYwyVdk09y0pykXgI/formResponse';
+const appsScriptEndpoint = 'https://script.google.com/macros/s/AKfycbxhM8h9FjhE2Eg9PGPhToWl1LqXWYVGnlBVxqtxIq2sMG65mqaaGfuNBYK34Z6Y2MsB/exec';
+/*
+const googleFormEndpoint = 'https://docs.google.com/forms/d/e/1FAIpQLScbII6wtXlUvSV6XiUj8ed4rE6GgGAvT0dCcduRKFiLix_Bw/formResponse';
+*/
 const heroCarousel = document.querySelector('[data-hero-carousel]');
 const maintenanceCarousel = document.querySelector('[data-maintenance-carousel]');
 let quoteOpenedAt = 0;
@@ -138,8 +141,11 @@ function closeQuoteModal() {
   quoteModal?.querySelector('.quote-antispam-message')?.setAttribute('hidden', '');
 }
 
-function submitGoogleForm(formData) {
-  const targetName = `google-form-target-${Date.now()}`;
+function submitToAppsScript(formData) {
+  if (!appsScriptEndpoint.startsWith('https://script.google.com/macros/s/')) {
+    throw new Error('Endpoint do Apps Script não configurado.');
+  }
+  const targetName = `apps-script-target-${Date.now()}`;
   const target = document.createElement('iframe');
   target.name = targetName;
   target.title = 'Envio do formulário';
@@ -148,18 +154,11 @@ function submitGoogleForm(formData) {
 
   const form = document.createElement('form');
   form.method = 'POST';
-  form.action = googleFormEndpoint;
+  form.action = appsScriptEndpoint;
   form.target = targetName;
   form.style.display = 'none';
 
-  const fields = {
-    'entry.1972608986': formData.nome,
-    'entry.1380888189': formData.email,
-    'entry.512800247': formData.telefone,
-    'entry.1321566934': formData.mensagem,
-  };
-
-  Object.entries(fields).forEach(([name, value]) => {
+  Object.entries(formData).forEach(([name, value]) => {
     const input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -174,7 +173,7 @@ function submitGoogleForm(formData) {
     window.setTimeout(() => {
       target.remove();
       form.remove();
-    }, 2000);
+    }, 5000);
   }
 }
 
@@ -186,7 +185,9 @@ quoteOpeners.forEach(opener => {
     const submitButton = quoteForm?.querySelector('button[type="submit"]');
     if (submitButton) submitButton.disabled = false;
     if (quoteSuccess) quoteSuccess.hidden = true;
-    quoteModal?.querySelector('.quote-antispam-message')?.setAttribute('hidden', '');
+    const spamMessage = quoteModal?.querySelector('.quote-antispam-message');
+    spamMessage?.setAttribute('hidden', '');
+    if (spamMessage) spamMessage.textContent = 'Não foi possível enviar agora. Tente novamente.';
     quoteModal?.classList.add('is-open');
     quoteModal?.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -206,16 +207,17 @@ quoteForm?.addEventListener('submit', async event => {
   event.preventDefault();
   const honeypot = quoteForm.elements.namedItem('empresa');
   const spamMessage = quoteModal?.querySelector('.quote-antispam-message');
-  const submittedTooFast = Date.now() - quoteOpenedAt < 1400;
+  const submittedTooFast = Date.now() - quoteOpenedAt < 900;
   if (honeypot?.value.trim() || submittedTooFast) {
     if (spamMessage) spamMessage.hidden = false;
     return;
   }
   const submitButton = quoteForm.querySelector('button[type="submit"]');
   const formData = Object.fromEntries(new FormData(quoteForm));
+  if (spamMessage) spamMessage.hidden = true;
   submitButton.disabled = true;
   try {
-    submitGoogleForm(formData);
+    submitToAppsScript(formData);
   } catch (error) {
     if (spamMessage) {
       spamMessage.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
@@ -227,6 +229,7 @@ quoteForm?.addEventListener('submit', async event => {
   quoteModal?.classList.add('is-success');
   quoteForm.hidden = true;
   if (quoteSuccess) quoteSuccess.hidden = false;
+  if (spamMessage) spamMessage.hidden = true;
 });
 
 if (heroCarousel) {

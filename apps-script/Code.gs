@@ -1,8 +1,22 @@
 const CONFIG = Object.freeze({
-  recipient: 'contato@gfxempresarial.com.br',
+  recipient: 'contato@bfxempresarial.com.br',
+  spreadsheetId: '1G47KlQ6QXRdixp0Rm5Me7zDpkTQYT4mDUnzPd_Fae18',
+  sheetName: 'Respostas ao formulário 1',
   minimumFillTimeMs: 1400,
   rateLimitSeconds: 60,
 });
+
+function autorizarServico() {
+  SpreadsheetApp
+    .openById(CONFIG.spreadsheetId)
+    .getSheetByName(CONFIG.sheetName)
+    .getName();
+  MailApp.getRemainingDailyQuota();
+}
+
+function doGet() {
+  return jsonResponse({ success: true, service: 'BFX Empresarial' });
+}
 
 function doPost(e) {
   try {
@@ -20,6 +34,24 @@ function doPost(e) {
       throw new Error('Aguarde alguns segundos antes de enviar outra solicitação.');
     }
     cache.put(`quote:${key}`, '1', CONFIG.rateLimitSeconds);
+
+    const sheet = SpreadsheetApp
+      .openById(CONFIG.spreadsheetId)
+      .getSheetByName(CONFIG.sheetName);
+    if (!sheet) throw new Error(`A aba "${CONFIG.sheetName}" não foi encontrada.`);
+    const lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+    try {
+      sheet.appendRow([
+        new Date(),
+        data.nome,
+        data.email,
+        data.telefone,
+        data.mensagem || '',
+      ]);
+    } finally {
+      lock.releaseLock();
+    }
 
     const subject = `Solicitação de orçamento — ${data.nome}`;
     const body = [
