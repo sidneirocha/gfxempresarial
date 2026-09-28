@@ -86,7 +86,7 @@ body[data-theme="dark"] .logo-card-dark:not(.logo-card-favicon):not(.logo-card-m
 .logo-card-dark .sample-label { color: var(--gray-300); }
 .asset-download { display: inline-flex; align-items: center; width: fit-content; padding-bottom: 3px; border-bottom: 1px solid currentColor; color: var(--orange-2); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: color .2s ease, transform .2s ease; }
 .asset-download:hover, .asset-download:focus-visible { color: var(--white); transform: translateX(3px); }
-.logo-card-light .asset-download { color: var(--navy); }
+.logo-card-light .asset-download { color: #08192b; }
 .logo-card-light .asset-download:hover, .logo-card-light .asset-download:focus-visible { color: var(--orange); }
 .logo-variants-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin: 24px 0 16px; }
 .logo-variants-heading .sample-label { color: var(--orange-2); }
