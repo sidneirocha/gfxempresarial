@@ -365,6 +365,7 @@ if (maintenanceCarousel) {
 
   const clones = cards.map(card => {
     const clone = card.cloneNode(true);
+    clone.classList.remove('reveal-on-scroll', 'is-visible');
     clone.setAttribute('aria-hidden', 'true');
     clone.querySelectorAll('a, button, input, textarea, select, [tabindex]').forEach(element => {
       element.setAttribute('tabindex', '-1');
