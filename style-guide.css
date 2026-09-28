@@ -191,6 +191,7 @@ body[data-theme="dark"] .motion-hero-logo-dark { display: block; }
 .photo-rules b { color: var(--orange-2); }
 .application-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .application-card { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--navy-soft); cursor: zoom-in; }
+.application-card-wide { grid-column: span 2; }
 .application-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .5s ease, filter .5s ease; }
 .application-card:hover img { transform: scale(1.025); filter: saturate(1.05); }
 .application-card figcaption { display: grid; gap: 6px; padding: 20px; }
@@ -260,6 +261,7 @@ body.lightbox-open { overflow: hidden; }
   .photo-group { margin-top: 48px; }
   .photo-group + .photo-group { margin-top: 62px; }
   .application-grid { grid-template-columns: 1fr; }
+  .application-card-wide { grid-column: auto; }
   .photo-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 190px; }
   .photo-large { grid-row: span 1; grid-column: span 2; }
   .photo-rules span + span { margin-top: 12px; }
