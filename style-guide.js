@@ -14,6 +14,31 @@ function applyTheme(theme) {
 
 applyTheme(storedTheme === 'light' ? 'light' : 'dark');
 
+const sectionNavLinks = [...document.querySelectorAll('.rail-nav a[href^="#"]')];
+const guideSections = sectionNavLinks
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+function setActiveSection(id) {
+  sectionNavLinks.forEach(link => {
+    link.setAttribute('aria-current', link.getAttribute('href') === `#${id}` ? 'true' : 'false');
+  });
+}
+
+sectionNavLinks.forEach(link => {
+  link.addEventListener('click', () => setActiveSection(link.getAttribute('href').slice(1)));
+});
+setActiveSection(window.location.hash ? window.location.hash.slice(1) : 'marca');
+
+if ('IntersectionObserver' in window && guideSections.length) {
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.filter(entry => entry.isIntersecting).forEach(entry => {
+      setActiveSection(entry.target.id);
+    });
+  }, { rootMargin: '-18% 0px -68% 0px', threshold: 0 });
+  guideSections.forEach(section => sectionObserver.observe(section));
+}
+
 themeToggle?.addEventListener('click', () => {
   const nextTheme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
   window.localStorage.setItem('bfx-style-guide-theme', nextTheme);
