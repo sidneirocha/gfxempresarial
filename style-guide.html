@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style-guide.css?v=20260928-applications">
+  <link rel="stylesheet" href="style-guide.css?v=20260928-email-signature">
 </head>
 <body>
   <main class="guide-shell">
@@ -29,10 +29,11 @@
         <a href="#cores"><span>04</span><strong>Cores</strong></a>
         <a href="#fotografia"><span>05</span><strong>Fotografia</strong></a>
         <a href="#aplicacoes"><span>06</span><strong>Aplicações</strong></a>
+        <a href="#assinatura"><span>07</span><strong>Assinatura de e-mail</strong></a>
       </nav>
       <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button>
       <div class="rail-bottom">
-        <span class="rail-index">Guia BFX · 01—05</span>
+        <span class="rail-index">Guia BFX · 01—07</span>
         <span class="rail-line" aria-hidden="true"></span>
         <p class="rail-label">Manual visual para uso interno e produção.</p>
       </div>
@@ -286,6 +287,38 @@
         </div>
       </section>
 
+      <section class="guide-section signature-section" id="assinatura">
+        <div class="section-heading">
+          <span class="section-number">07</span>
+          <div><p class="section-label">Assinatura de e-mail</p><h2>Presença em cada envio.</h2></div>
+        </div>
+        <p class="section-intro">Preencha os dados, confira o preview e copie a assinatura formatada para colar no seu aplicativo de e-mail.</p>
+        <div class="signature-builder">
+          <form class="signature-form" data-signature-form>
+            <div class="signature-form-heading">
+              <span class="sample-label">Gerador de assinatura</span>
+              <p>Os links de e-mail, telefone e site serão mantidos clicáveis.</p>
+            </div>
+            <label>Nome ou empresa<input type="text" name="name" data-signature-field="name" value="BFX Empresarial" maxlength="80" autocomplete="name"></label>
+            <label>Cargo / linha de atuação<input type="text" name="role" data-signature-field="role" value="Manutenção • Gestão Predial • Gestão de Projetos" maxlength="100"></label>
+            <label>E-mail<input type="email" name="email" data-signature-field="email" value="contato@bfxempresarial.com.br" maxlength="120" autocomplete="email"></label>
+            <label>Telefone<input type="tel" name="phone" data-signature-field="phone" value="+55 13 3000-0000" maxlength="30" autocomplete="tel"></label>
+            <label>Site<input type="text" name="website" data-signature-field="website" value="www.bfxempresarial.com.br" maxlength="120" autocomplete="url"></label>
+            <label>Endereço<input type="text" name="address" data-signature-field="address" value="Av. Ana Costa, 100 • Santos/SP • 11060-000" maxlength="140" autocomplete="street-address"></label>
+            <label>Texto final<input type="text" name="tagline" data-signature-field="tagline" value="Estrutura, eficiência e cuidado para manter seu patrimônio em movimento." maxlength="160"></label>
+            <div class="signature-actions">
+              <button class="signature-copy" type="button" data-signature-copy>Copiar assinatura</button>
+              <button class="signature-download" type="button" data-signature-download>Baixar HTML</button>
+            </div>
+            <p class="signature-status" data-signature-status role="status" aria-live="polite"></p>
+          </form>
+          <div class="signature-preview-panel">
+            <div class="signature-preview-heading"><span class="sample-label">Preview</span><span>Compatível com Gmail e Outlook</span></div>
+            <div class="signature-preview" data-signature-preview></div>
+          </div>
+        </div>
+      </section>
+
       <footer class="guide-footer"><img loading="lazy" decoding="async" class="theme-logo" src="assets/logo-bfx-dark.svg" data-dark-src="assets/logo-bfx-dark.svg" data-light-src="assets/logo-bfx-light.svg" alt="BFX Empresarial"><span>Guia interno · BFX Empresarial</span><a href="#topo">Voltar ao início ↑</a></footer>
     </div>
   </main>
@@ -302,6 +335,6 @@
       <img loading="lazy" decoding="async" data-lightbox-image alt="">
     </div>
   </div>
-  <script src="style-guide.js?v=20260928-applications-zoom"></script>
+  <script src="style-guide.js?v=20260928-email-signature-2"></script>
 </body>
 </html>

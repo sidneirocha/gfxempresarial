@@ -63,6 +63,128 @@ themeToggle?.addEventListener('click', () => {
   applyTheme(nextTheme);
 });
 
+const signatureForm = document.querySelector('[data-signature-form]');
+const signaturePreview = document.querySelector('[data-signature-preview]');
+const signatureCopyButton = document.querySelector('[data-signature-copy]');
+const signatureDownloadButton = document.querySelector('[data-signature-download]');
+const signatureStatus = document.querySelector('[data-signature-status]');
+const signaturePublicBase = 'https://bfxempresarial.com.br';
+
+function escapeSignatureValue(value) {
+  return String(value || '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+}
+
+function normalizeSignatureUrl(value) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return '';
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
+function normalizeSignaturePhone(value) {
+  const trimmed = String(value || '').trim();
+  return trimmed ? trimmed.replace(/[^\d+]/g, '') : '';
+}
+
+function readSignatureValues() {
+  return Object.fromEntries([...signatureForm.querySelectorAll('[data-signature-field]')].map(field => [field.dataset.signatureField, field.value.trim()]));
+}
+
+function contactRow(letter, content, href, isLast = false) {
+  if (!content) return '';
+  const safeContent = escapeSignatureValue(content);
+  const linkedContent = href ? `<a href="${escapeSignatureValue(href)}" style="color:#08192B;text-decoration:none;">${safeContent}</a>` : safeContent;
+  return `<tr><td style="font-size:13px;line-height:20px;color:#5C6673;padding:0 0 ${isLast ? '0' : '2px'} 0;"><span style="color:#F67603;font-weight:700;">${letter}</span>&nbsp;&nbsp;${linkedContent}</td></tr>`;
+}
+
+function buildSignatureMarkup(values, logoUrl) {
+  const name = escapeSignatureValue(values.name || 'BFX Empresarial');
+  const role = escapeSignatureValue(values.role || 'Manutenção • Gestão Predial • Gestão de Projetos');
+  const tagline = escapeSignatureValue(values.tagline || 'Estrutura, eficiência e cuidado para manter seu patrimônio em movimento.');
+  const emailHref = values.email ? `mailto:${encodeURIComponent(values.email)}` : '';
+  const phoneHref = values.phone ? `tel:${normalizeSignaturePhone(values.phone)}` : '';
+  const websiteUrl = normalizeSignatureUrl(values.website);
+  const rows = [
+    contactRow('E', values.email, emailHref),
+    contactRow('T', values.phone, phoneHref),
+    contactRow('W', values.website, websiteUrl),
+    contactRow('A', values.address, '', true),
+  ].join('');
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:620px;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#08192B;">
+  <tr>
+    <td style="width:168px;padding:0 24px 0 0;vertical-align:middle;border-right:2px solid #F67603;">
+      <a href="${escapeSignatureValue(websiteUrl || `${signaturePublicBase}/`)}" style="text-decoration:none;">
+        <img src="${escapeSignatureValue(logoUrl)}" width="145" alt="BFX Empresarial" style="display:block;width:145px;max-width:145px;height:auto;border:0;outline:none;text-decoration:none;">
+      </a>
+    </td>
+    <td style="padding:0 0 0 24px;vertical-align:middle;">
+      <div style="font-size:20px;line-height:24px;font-weight:700;color:#08192B;margin:0 0 4px 0;">${name}</div>
+      <div style="font-size:12px;line-height:18px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:#F67603;margin:0 0 12px 0;">${role}</div>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">${rows}</table>
+      <div style="margin-top:13px;font-size:11px;line-height:16px;color:#8A929C;">${tagline}</div>
+    </td>
+  </tr>
+</table>`;
+}
+
+function buildSignaturePlainText(values) {
+  return [values.name || 'BFX Empresarial', values.role || 'Manutenção • Gestão Predial • Gestão de Projetos', '', values.email && `E  ${values.email}`, values.phone && `T  ${values.phone}`, values.website && `W  ${values.website}`, values.address && `A  ${values.address}`, '', values.tagline || 'Estrutura, eficiência e cuidado para manter seu patrimônio em movimento.'].filter(Boolean).join('\n');
+}
+
+function renderSignature() {
+  if (!signatureForm || !signaturePreview) return;
+  const values = readSignatureValues();
+  const localLogoUrl = new URL('assets/logo-bfx-light.svg', document.baseURI).href;
+  signaturePreview.innerHTML = buildSignatureMarkup(values, localLogoUrl);
+}
+
+async function copySignature() {
+  const values = readSignatureValues();
+  const html = buildSignatureMarkup(values, `${signaturePublicBase}/assets/logo-bfx-light.svg`);
+  const plainText = buildSignaturePlainText(values);
+  try {
+    if (navigator.clipboard?.write && window.ClipboardItem) {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([plainText], { type: 'text/plain' }),
+      })]);
+    } else {
+      const helper = document.createElement('div');
+      helper.contentEditable = 'true';
+      helper.innerHTML = html;
+      helper.style.position = 'fixed';
+      helper.style.left = '-9999px';
+      document.body.append(helper);
+      const range = document.createRange();
+      range.selectNodeContents(helper);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      document.execCommand('copy');
+      selection.removeAllRanges();
+      helper.remove();
+    }
+    if (signatureStatus) signatureStatus.textContent = 'Assinatura copiada. Cole diretamente no corpo do e-mail.';
+  } catch {
+    if (signatureStatus) signatureStatus.textContent = 'Não foi possível copiar automaticamente. Tente novamente em uma página publicada ou use o download HTML.';
+  }
+}
+
+function downloadSignature() {
+  const values = readSignatureValues();
+  const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Assinatura de e-mail — ${escapeSignatureValue(values.name || 'BFX Empresarial')}</title></head><body style="margin:0;padding:24px;background:#ffffff;">${buildSignatureMarkup(values, `${signaturePublicBase}/assets/logo-bfx-light.svg`)}</body></html>`;
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+  link.download = 'assinatura-bfx.html';
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  if (signatureStatus) signatureStatus.textContent = 'HTML baixado. Abra o arquivo para revisar ou reutilizar.';
+}
+
+signatureForm?.addEventListener('input', renderSignature);
+signatureCopyButton?.addEventListener('click', copySignature);
+signatureDownloadButton?.addEventListener('click', downloadSignature);
+renderSignature();
+
 document.querySelectorAll('[data-copy-color]').forEach(button => {
   button.addEventListener('click', async () => {
     const value = button.dataset.copyColor;

@@ -198,6 +198,30 @@ body[data-theme="dark"] .motion-hero-logo-dark { display: block; }
 .application-card figcaption strong { color: var(--orange-2); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
 .application-card figcaption span { color: var(--ink); font-size: 12px; line-height: 1.45; }
 .application-card .asset-download { margin-top: 8px; color: var(--orange-2); }
+.signature-builder { display: grid; grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr); gap: 16px; align-items: start; }
+.signature-form, .signature-preview-panel { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--navy-soft); }
+.signature-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.signature-form-heading { grid-column: 1 / -1; display: grid; gap: 7px; margin-bottom: 4px; }
+.signature-form-heading .sample-label { color: var(--orange-2); }
+.signature-form-heading p, .signature-preview-heading span:last-child { color: var(--ink); font-size: 11px; line-height: 1.45; }
+.signature-form label { display: grid; gap: 7px; color: var(--ink); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.signature-form label:nth-of-type(1), .signature-form label:nth-of-type(2), .signature-form label:nth-of-type(5), .signature-form label:nth-of-type(6), .signature-form label:nth-of-type(7) { grid-column: 1 / -1; }
+.signature-form input { width: 100%; min-height: 42px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; outline: 0; background: rgba(255,255,255,.08); color: var(--white); font: 500 12px Montserrat, sans-serif; letter-spacing: 0; text-transform: none; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+body[data-theme="light"] .signature-form input { background: rgba(255,255,255,.75); }
+.signature-form input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,122,0,.16); }
+.signature-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.signature-copy, .signature-download { min-height: 40px; padding: 10px 14px; border-radius: 7px; cursor: pointer; font: 700 10px Montserrat, sans-serif; letter-spacing: .06em; text-transform: uppercase; transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
+.signature-copy { border: 1px solid var(--orange); background: var(--orange); color: #fff; }
+.signature-download { border: 1px solid currentColor; background: transparent; color: var(--white); }
+.signature-copy:hover, .signature-copy:focus-visible, .signature-download:hover, .signature-download:focus-visible { transform: translateY(-1px); }
+.signature-copy:hover, .signature-copy:focus-visible { background: var(--orange-2); border-color: var(--orange-2); }
+.signature-download:hover, .signature-download:focus-visible { border-color: var(--orange-2); color: var(--orange-2); }
+.signature-status { grid-column: 1 / -1; min-height: 16px; color: var(--orange-2); font-size: 11px; }
+.signature-preview-panel { min-width: 0; background: #fff; color: #08192b; }
+.signature-preview-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.signature-preview-heading .sample-label { color: #667184; }
+.signature-preview { min-height: 270px; display: flex; align-items: center; overflow-x: auto; padding: 24px; border: 1px solid #e5e9ee; background: #fff; }
+.signature-preview table { flex: 0 0 auto; }
 .guide-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 32px 0 42px; color: var(--gray-300); font-size: 11px; }
 .guide-footer img { width: 82px; }
 .guide-footer a { color: var(--orange-2); }
@@ -262,6 +286,10 @@ body.lightbox-open { overflow: hidden; }
   .photo-group + .photo-group { margin-top: 62px; }
   .application-grid { grid-template-columns: 1fr; }
   .application-card-wide { grid-column: auto; }
+  .signature-builder { grid-template-columns: 1fr; }
+  .signature-form { grid-template-columns: 1fr; }
+  .signature-form label, .signature-form label:nth-of-type(1), .signature-form label:nth-of-type(2), .signature-form label:nth-of-type(5), .signature-form label:nth-of-type(6), .signature-form label:nth-of-type(7) { grid-column: auto; }
+  .signature-preview { padding: 18px; }
   .photo-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 190px; }
   .photo-large { grid-row: span 1; grid-column: span 2; }
   .photo-rules span + span { margin-top: 12px; }
