@@ -87,7 +87,9 @@ body[data-theme="dark"] .logo-card-dark:not(.logo-card-favicon):not(.logo-card-m
 .usage-note { margin-top: 22px; color: var(--ink); font-size: 13px; line-height: 1.6; }
 .usage-note strong { color: var(--orange-2); }
 .type-specimen { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; padding: 34px; background: var(--orange); color: #08192b; border-radius: 14px; }
-.type-display p { margin-top: 50px; font-size: clamp(36px, 5vw, 72px); font-weight: 800; line-height: .9; letter-spacing: -.06em; }
+.type-display { display: flex; flex-direction: column; justify-content: center; }
+.type-display h2 { margin: 0 0 24px; color: #08192b; font-size: clamp(34px, 5vw, 68px); line-height: .92; letter-spacing: -.055em; }
+.type-display .sample-label { color: rgba(8,25,43,.68); }
 .type-details { display: grid; align-content: end; gap: 18px; }
 .type-details div { display: grid; gap: 4px; padding-top: 12px; border-top: 1px solid rgba(8,25,43,.25); }
 .type-details span, .type-details strong { font-size: 12px; }
