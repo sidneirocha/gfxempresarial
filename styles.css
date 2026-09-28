@@ -303,7 +303,7 @@ p {
   display: inline-block;
   white-space: nowrap;
 }
-.hero-copy h1 .hero-line { display: block; }
+.hero-copy h1 .hero-line { display: block; white-space: nowrap; }
 .hero-slide.is-active .hero-copy h1 .hero-letter {
   animation: lettering-in .72s cubic-bezier(.22,1,.36,1) forwards;
   animation-delay: calc(120ms + (var(--letter-index) * 28ms));
@@ -398,6 +398,7 @@ p {
 .hero-copy {
   max-width: 620px;
 }
+.hero-copy h1 { font-size: clamp(38px, 5.2vw, 68px); }
 .hero-copy p {
   max-width: 520px;
   margin-top: 22px;
@@ -1129,7 +1130,7 @@ body.modal-open { overflow: hidden; }
   .management-copy,
   .cta-copy { padding: 34px 24px; }
   .solution-body h3 { font-size: 22px; }
-  .hero-copy h1 { font-size: 44px; }
+  .hero-copy h1 { font-size: 34px; }
   .cta-image { min-height: 280px; }
   .footer-inner { grid-template-columns: 1fr; }
   .footer-brand-block { grid-column: auto; }

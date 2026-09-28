@@ -386,15 +386,33 @@ if (maintenanceCarousel) {
     const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
     return (firstCard?.getBoundingClientRect().width || 0) + gap;
   };
-  const getCurrentPage = () => Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
   const measureCycle = () => {
     cycleWidth = clones[0]?.offsetLeft - cards[0]?.offsetLeft || track.scrollWidth;
   };
-  const normalizeScroll = () => {
-    if (!cycleWidth) measureCycle();
+  const getCurrentPage = () => {
+    const pageCount = getPageCount();
+    const logicalScroll = cycleWidth > 0 ? track.scrollLeft % cycleWidth : track.scrollLeft;
+    return Math.min(pageCount - 1, Math.round(logicalScroll / Math.max(track.clientWidth, 1)));
+  };
+  let resetTimer = 0;
+  const updateActiveDot = () => {
+    const page = getCurrentPage();
+    dotsContainer?.querySelectorAll('.carousel-dot').forEach((dot, index) => dot.classList.toggle('is-active', index === page));
+  };
+  const resetCycle = () => {
+    resetTimer = 0;
     if (cycleWidth <= 0 || track.scrollLeft < cycleWidth) return;
     const normalizedScroll = track.scrollLeft % cycleWidth;
-    if (normalizedScroll !== track.scrollLeft) track.scrollLeft = normalizedScroll;
+    const previousScrollBehavior = track.style.scrollBehavior;
+    track.style.scrollBehavior = 'auto';
+    track.scrollLeft = normalizedScroll;
+    track.style.scrollBehavior = previousScrollBehavior;
+    updateActiveDot();
+  };
+  const scheduleCycleReset = () => {
+    if (cycleWidth <= 0 || track.scrollLeft < cycleWidth) return;
+    window.clearTimeout(resetTimer);
+    resetTimer = window.setTimeout(resetCycle, 220);
   };
 
   const stopAutoplay = () => {
@@ -442,6 +460,7 @@ if (maintenanceCarousel) {
       });
       dotsContainer.append(dot);
     }
+    updateActiveDot();
   };
 
   prevButton?.addEventListener('click', () => {
@@ -453,9 +472,8 @@ if (maintenanceCarousel) {
     startAutoplay();
   });
   track.addEventListener('scroll', () => {
-    normalizeScroll();
-    const page = getCurrentPage();
-    dotsContainer?.querySelectorAll('.carousel-dot').forEach((dot, index) => dot.classList.toggle('is-active', index === page));
+    updateActiveDot();
+    scheduleCycleReset();
   }, { passive: true });
   const pauseForInteraction = () => {
     interactionPaused = true;
@@ -482,9 +500,10 @@ if (maintenanceCarousel) {
   reducedMotionQuery.addEventListener?.('change', startAutoplay);
   updateDots();
   measureCycle();
+  scheduleCycleReset();
   window.addEventListener('resize', () => {
     measureCycle();
-    normalizeScroll();
+    scheduleCycleReset();
     updateDots();
     startAutoplay();
   });
