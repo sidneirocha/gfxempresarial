@@ -118,7 +118,7 @@ if (guidePointer.matches && !guideReducedMotion.matches) {
 const lightbox = document.querySelector('[data-lightbox]');
 const lightboxImage = lightbox?.querySelector('[data-lightbox-image]');
 const zoomValue = lightbox?.querySelector('[data-zoom-value]');
-const galleryImages = [...document.querySelectorAll('.photo-photo img')];
+const galleryImages = [...document.querySelectorAll('.photo-photo img, .application-card img')];
 let activeImageIndex = 0;
 let zoomLevel = 1;
 let lastFocusedImage = null;
@@ -150,14 +150,14 @@ function showImage(index) {
 
 function openLightbox(image) {
   if (!lightbox || !lightboxImage) return;
-  lastFocusedImage = image.closest('.photo-photo');
+  lastFocusedImage = image.closest('.photo-photo, .application-card');
   showImage(galleryImages.indexOf(image));
   lightbox.hidden = false;
   document.body.classList.add('lightbox-open');
   lightbox.querySelector('[data-lightbox-stage]')?.focus();
 }
 
-document.querySelectorAll('.photo-photo').forEach(photo => {
+document.querySelectorAll('.photo-photo, .application-card').forEach(photo => {
   const image = photo.querySelector('img');
   if (!image) return;
   photo.tabIndex = 0;
