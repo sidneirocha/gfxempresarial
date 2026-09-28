@@ -392,9 +392,9 @@ if (maintenanceCarousel) {
   };
   const normalizeScroll = () => {
     if (!cycleWidth) measureCycle();
-    while (cycleWidth > 0 && track.scrollLeft >= cycleWidth) {
-      track.scrollLeft -= cycleWidth;
-    }
+    if (cycleWidth <= 0 || track.scrollLeft < cycleWidth) return;
+    const normalizedScroll = track.scrollLeft % cycleWidth;
+    if (normalizedScroll !== track.scrollLeft) track.scrollLeft = normalizedScroll;
   };
 
   const stopAutoplay = () => {
