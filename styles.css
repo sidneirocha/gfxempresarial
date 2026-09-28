@@ -303,6 +303,7 @@ p {
   display: inline-block;
   white-space: nowrap;
 }
+.hero-copy h1 .hero-line { display: block; }
 .hero-slide.is-active .hero-copy h1 .hero-letter {
   animation: lettering-in .72s cubic-bezier(.22,1,.36,1) forwards;
   animation-delay: calc(120ms + (var(--letter-index) * 28ms));

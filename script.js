@@ -32,9 +32,10 @@ window.bfxTurnstileError = () => {
 
 document.querySelectorAll('.hero-copy h1').forEach(heading => {
   const text = heading.textContent.trim();
+  const lines = heading.dataset.heroLines?.split('|').map(line => line.trim()).filter(Boolean);
   heading.setAttribute('aria-label', text);
   let letterIndex = 0;
-  heading.innerHTML = text.split(/(\s+)/).map(token => {
+  const renderLine = line => line.split(/(\s+)/).map(token => {
     if (/\s+/.test(token)) return token;
     const letters = [...token].map(character => {
       const html = `<span class="hero-letter" aria-hidden="true" style="--letter-index:${letterIndex}">${character}</span>`;
@@ -43,6 +44,7 @@ document.querySelectorAll('.hero-copy h1').forEach(heading => {
     }).join('');
     return `<span class="hero-word" aria-hidden="true">${letters}</span>`;
   }).join('');
+  heading.innerHTML = (lines?.length ? lines : [text]).map(line => lines?.length ? `<span class="hero-line">${renderLine(line)}</span>` : renderLine(line)).join('');
 });
 
 const revealTargets = document.querySelectorAll(
@@ -271,7 +273,8 @@ if (heroCarousel) {
   const progress = heroCarousel.querySelector('.hero-progress');
   const progressFill = heroCarousel.querySelector('[data-hero-progress]');
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let activeIndex = 0;
+  const initialIndex = slides.findIndex(slide => slide.classList.contains('is-active'));
+  let activeIndex = initialIndex >= 0 ? initialIndex : 0;
   let rotation;
   let hoverPaused = false;
   let focusPaused = false;
@@ -306,7 +309,7 @@ if (heroCarousel) {
   slides.forEach((_, index) => {
     const dot = document.createElement('button');
     dot.type = 'button';
-    dot.className = `hero-carousel-dot${index === 0 ? ' is-active' : ''}`;
+    dot.className = `hero-carousel-dot${index === activeIndex ? ' is-active' : ''}`;
     dot.setAttribute('aria-label', `Destaque ${index + 1}`);
     dot.addEventListener('click', () => { renderHero(index); restartRotation(); });
     dotsContainer?.append(dot);
@@ -345,7 +348,7 @@ if (heroCarousel) {
   });
   document.addEventListener('visibilitychange', restartRotation);
   reducedMotionQuery.addEventListener?.('change', restartRotation);
-  renderHero(0);
+  renderHero(activeIndex);
   restartRotation();
 }
 
