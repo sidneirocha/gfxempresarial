@@ -16,16 +16,20 @@
 <body>
   <main class="guide-shell">
     <aside class="guide-rail" aria-label="Navegação do guia">
-      <a class="rail-brand" href="#topo" aria-label="Voltar ao início do guia">
-        <img src="assets/logo-bfx-dark.svg" data-dark-src="assets/logo-bfx-dark.svg" data-light-src="assets/logo-bfx-light.svg" alt="BFX Empresarial">
-      </a>
-      <nav class="rail-nav" aria-label="Seções">
+      <div class="rail-head">
+        <a class="rail-brand" href="#topo" aria-label="Voltar ao início do guia">
+          <img src="assets/logo-bfx-dark.svg" data-dark-src="assets/logo-bfx-dark.svg" data-light-src="assets/logo-bfx-light.svg" alt="BFX Empresarial">
+        </a>
+        <button class="rail-menu-toggle" type="button" aria-expanded="false" aria-controls="guide-nav"><span aria-hidden="true">☰</span><span>Seções</span></button>
+      </div>
+      <nav class="rail-nav" id="guide-nav" aria-label="Seções">
         <a href="#marca"><span>01</span><strong>Identidade</strong></a>
         <a href="#animacoes"><span>02</span><strong>Animações</strong></a>
         <a href="#tipografia"><span>03</span><strong>Tipografia</strong></a>
         <a href="#cores"><span>04</span><strong>Cores</strong></a>
         <a href="#fotografia"><span>05</span><strong>Fotografia</strong></a>
       </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button>
       <div class="rail-bottom">
         <span class="rail-index">Guia BFX · 01—05</span>
         <span class="rail-line" aria-hidden="true"></span>
@@ -34,7 +38,6 @@
     </aside>
     <div class="guide-content">
       <header class="guide-hero" id="topo">
-        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span aria-hidden="true">◐</span><span data-theme-label>Modo claro</span></button>
         <div class="guide-hero-image">
           <img loading="eager" fetchpriority="high" decoding="async" src="assets/optimized/hero-building.jpg" alt="Edifício corporativo BFX ao entardecer">
           <div class="guide-hero-overlay"></div>

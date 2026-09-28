@@ -15,6 +15,8 @@ function applyTheme(theme) {
 applyTheme(storedTheme === 'light' ? 'light' : 'dark');
 
 const sectionNavLinks = [...document.querySelectorAll('.rail-nav a[href^="#"]')];
+const guideRail = document.querySelector('.guide-rail');
+const railMenuToggle = document.querySelector('.rail-menu-toggle');
 const guideSections = sectionNavLinks
   .map(link => document.querySelector(link.getAttribute('href')))
   .filter(Boolean);
@@ -26,9 +28,25 @@ function setActiveSection(id) {
 }
 
 sectionNavLinks.forEach(link => {
-  link.addEventListener('click', () => setActiveSection(link.getAttribute('href').slice(1)));
+  link.addEventListener('click', () => {
+    setActiveSection(link.getAttribute('href').slice(1));
+    guideRail?.classList.remove('is-open');
+    railMenuToggle?.setAttribute('aria-expanded', 'false');
+  });
 });
 setActiveSection(window.location.hash ? window.location.hash.slice(1) : 'marca');
+
+railMenuToggle?.addEventListener('click', () => {
+  const isOpen = guideRail?.classList.toggle('is-open') ?? false;
+  railMenuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape' || !guideRail?.classList.contains('is-open')) return;
+  guideRail.classList.remove('is-open');
+  railMenuToggle?.setAttribute('aria-expanded', 'false');
+  railMenuToggle?.focus();
+});
 
 if ('IntersectionObserver' in window && guideSections.length) {
   const sectionObserver = new IntersectionObserver(entries => {
